@@ -18,7 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { problems } from "@/data/problems";
-import { telLink, waLink } from "@/lib/contact";
+import { externalProps, telLink, waLink } from "@/lib/contact";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -526,6 +526,7 @@ export function ProblemSelector() {
               </a>
               <a
                 href={waLink(current.title)}
+                {...externalProps}
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-base font-medium text-[#04331a] transition hover:brightness-95"
                 style={{ background: "#25D366" }}
               >

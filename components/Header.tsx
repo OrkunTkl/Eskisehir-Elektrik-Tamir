@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { waLink } from "@/lib/contact";
+import { externalProps, waLink } from "@/lib/contact";
 
 const nav: [string, string][] = [
   ["Hizmetler", "/hizmetler"],
@@ -73,11 +73,12 @@ export function Header() {
           <a
             ref={cta}
             href={waLink()}
+            {...externalProps}
             onPointerMove={magnet}
             onPointerLeave={unmagnet}
             className="rounded-full border border-white/25 px-5 py-2.5 font-medium text-paper transition-[transform,border-color,color] duration-300 ease-out hover:border-accent hover:text-accent-soft"
           >
-            Elektrikçi Desteği Al
+            WhatsApp&apos;tan Yaz
           </a>
         </nav>
 
@@ -95,7 +96,7 @@ export function Header() {
       <div
         id="mobile-menu"
         aria-hidden={!open}
-        className={`fixed inset-0 z-40 flex flex-col justify-end bg-ink px-6 pb-14 pt-28 transition-[opacity,visibility] duration-500 md:hidden ${
+        className={`fixed inset-0 z-[45] flex flex-col justify-end bg-ink px-6 pb-[calc(3.5rem+env(safe-area-inset-bottom))] pt-28 transition-[opacity,visibility] duration-500 md:hidden ${
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
@@ -121,13 +122,14 @@ export function Header() {
         </nav>
         <a
           href={waLink()}
+          {...externalProps}
           tabIndex={open ? 0 : -1}
           style={{ transitionDelay: open ? "380ms" : "0ms" }}
           className={`mt-10 inline-flex w-fit rounded-full border border-white/25 px-6 py-3 font-medium text-paper transition-[opacity,transform,border-color] duration-700 hover:border-accent ${
             open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
           }`}
         >
-          Elektrikçi Desteği Al
+          WhatsApp&apos;tan Yaz
         </a>
       </div>
     </>

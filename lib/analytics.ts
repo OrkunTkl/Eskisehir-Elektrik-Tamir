@@ -1,11 +1,13 @@
 // Bağımlılıksız analytics soyutlaması. Sayfada dataLayer / gtag / plausible varsa ona iletir, yoksa sessizce geçer.
 export type EventName =
-  | "phone_click" | "whatsapp_click" | "callback_open" | "callback_submit"
-  | "problem_selected" | "service_selected" | "district_selected"
-  | "lead_started" | "lead_submitted" | "lead_completed" | "provider_assigned";
+  | "phone_click"
+  | "whatsapp_click"
+  | "form_whatsapp_submit"
+  | "problem_selected"
+  | "district_selected";
 
-export type EventParams = { problem?: string; service?: string; district?: string; source?: string; landing_page?: string };
-const ALLOWED = ["problem", "service", "district", "source", "landing_page"] as const;
+export type EventParams = { problem?: string; service?: string; district?: string };
+const ALLOWED = ["problem", "service", "district"] as const;
 
 declare global {
   interface Window {
@@ -25,11 +27,9 @@ export function track(name: EventName, params: EventParams = {}) {
     const v = params[k];
     if (v) p[k] = scrub(v);
   }
-  if (!p.source) p.source = new URLSearchParams(window.location.search).get("utm_source") ?? "direct";
   try {
     window.dataLayer?.push({ event: name, ...p });
     window.gtag?.("event", name, p);
     window.plausible?.(name, { props: p });
-    if (process.env.NODE_ENV === "development") console.debug("[track]", name, p);
   } catch {}
 }

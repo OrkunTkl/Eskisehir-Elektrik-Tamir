@@ -4,9 +4,7 @@ import { Cta } from "@/components/Cta";
 import { ProblemSelector } from "@/components/ProblemSelector";
 import { ServiceList } from "@/components/ServiceList";
 import { HowItWorks } from "@/components/HowItWorks";
-import { SingleContact } from "@/components/SingleContact";
 import { CallbackSection } from "@/components/CallbackSection";
-import { ReviewSection } from "@/components/ReviewSection";
 export const metadata = meta(
   "Eskişehir Elektrikçi | Elektrik Arıza ve Elektrikçi Desteği",
   "Eskişehir'de elektrik arızası için ne yapmanız gerektiğini öğrenin. Sorununuzu belirleyin ve uygun elektrikçi desteğine ulaşmak için bizimle iletişime geçin.",
@@ -61,9 +59,7 @@ export default function Home() {
           <ServiceList />
         </div>
       </section>
-      <SingleContact />
       <CallbackSection />
-      <ReviewSection />
     </>
   );
 }

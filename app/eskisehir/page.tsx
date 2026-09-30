@@ -4,7 +4,7 @@ import { FaqSection } from "@/components/Faq";
 import { RelatedLinks } from "@/components/RelatedLinks";
 import { CallbackSection } from "@/components/CallbackSection";
 import { meta, breadcrumb } from "@/lib/seo";
-import { districts } from "@/lib/leads";
+import { districts } from "@/lib/contact";
 export const metadata = meta(
   "Eskişehir Elektrik Desteği | Hizmet Alanı ve Yönlendirme",
   "Eskişehir'de elektrik sorunu için talebinizi nasıl iletirsiniz, hangi ilçeler için talep oluşturabilirsiniz ve yönlendirme nasıl işler? Tüm ayrıntılar bu sayfada.",
@@ -21,7 +21,7 @@ const faq = [
   },
   {
     q: "Talebimi nasıl iletebilirim?",
-    a: "Telefonla arayabilir, WhatsApp'tan yazabilir veya sayfadaki formu doldurup sizi aramamızı isteyebilirsiniz. Sorununuzu ve ilçenizi yazmanız değerlendirmeyi kolaylaştırır.",
+    a: "Telefonla arayabilir, WhatsApp'tan yazabilir veya sayfadaki formu doldurup bilgilerinizi hazır bir WhatsApp mesajı olarak gönderebilirsiniz. Sorununuzu ve ilçenizi yazmanız değerlendirmeyi kolaylaştırır.",
   },
 ];
 export default function Page() {
@@ -58,10 +58,6 @@ export default function Page() {
             Talep oluşturabileceğiniz ilçeler
           </h2>
           <p className="mt-4 text-lg text-mute">{districts.join(", ")}.</p>
-          <p className="mt-4 text-mute">
-            İlçe bazlı ayrı sayfalar, gerçek hizmet kapsamı ve özgün bilgi
-            olduğunda eklenecektir; şimdilik tek bir sayfada topluyoruz.
-          </p>
         </section>
         <RelatedLinks
           problemSlugs={[

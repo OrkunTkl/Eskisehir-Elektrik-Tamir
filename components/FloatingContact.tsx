@@ -1,10 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Phone, X } from "lucide-react";
-import { PHONE_DISPLAY, telLink, waMessage } from "@/lib/contact";
+import {
+  DEFAULT_WA_MESSAGE,
+  PHONE_DISPLAY,
+  telLink,
+  waMessage,
+} from "@/lib/contact";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
-const DEFAULT_MSG = "Merhaba, Eskişehir'de elektrik desteğine ihtiyacım var.";
+const DEFAULT_MSG = DEFAULT_WA_MESSAGE;
 // WhatsApp marka renkleri
 const WA_GREEN = "#25D366";
 const WA_DARK = "#075E54";

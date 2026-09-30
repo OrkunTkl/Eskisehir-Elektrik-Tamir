@@ -1,36 +1,24 @@
 "use client";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { problemOptions, waContextLink } from "@/lib/contact";
-import { districts, timeSlots, submitLead, getAttribution } from "@/lib/leads";
+import { districts, problemOptions, waMessage } from "@/lib/contact";
 import { track } from "@/lib/analytics";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const field =
-  "mt-2 w-full rounded-xl border border-line bg-white/[.04] px-4 py-3 text-paper outline-none transition placeholder:text-mute/60 focus:border-accent";
+  "mt-2 w-full rounded-xl border border-line bg-white/[.04] px-4 py-3 text-base text-paper outline-none transition placeholder:text-mute/60 focus:border-accent";
 const lbl = "block text-sm text-mute";
-type Status = "idle" | "sending" | "done" | "fallback" | "error";
 
+// Form sunucuya veri göndermez: bilgiler hazır bir WhatsApp mesajına dönüştürülür ve
+// kullanıcı mesajı WhatsApp'ta kendisi gönderir.
 export function CallbackForm() {
-  const [status, setStatus] = useState<Status>("idle");
   const [err, setErr] = useState("");
+  const [waUrl, setWaUrl] = useState("");
   const [problem, setProblem] = useState("");
   const [district, setDistrict] = useState("");
-  const [fileName, setFileName] = useState("");
-  const started = useRef(false);
-  const t0 = useRef(Date.now());
-  const ev = () => ({
-    problem: problemOptions.find((o) => o.value === problem)?.label,
-    district: district || undefined,
-  });
+  const t0 = useRef(0);
 
-  const onStart = () => {
-    if (started.current) return;
-    started.current = true;
-    t0.current = Date.now();
-    track("lead_started", ev());
-  };
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     if (f.get("website")) return; // honeypot: botlar doldurur
@@ -38,62 +26,69 @@ export function CallbackForm() {
     const phone = String(f.get("phone") ?? "").replace(/[^\d+]/g, "");
     const digits = phone.replace(/\D/g, "");
     if (name.length < 2) return setErr("Lütfen adınızı ve soyadınızı yazın.");
-    if (digits.length < 10 || digits.length > 13)
-      return setErr("Lütfen geçerli bir telefon numarası yazın.");
+    if (!/^(\+?90|0)?5\d{9}$/.test(phone))
+      return setErr(
+        "Lütfen geçerli bir cep telefonu numarası yazın. Örnek: 0532 123 45 67",
+      );
     if (!problem) return setErr("Lütfen sorun veya hizmet türünü seçin.");
-    if (Date.now() - t0.current < 2500)
-      return setErr("Lütfen formu kontrol edip tekrar gönderin.");
+    if (!t0.current || Date.now() - t0.current < 1500)
+      return setErr("Lütfen bilgileri kontrol edip tekrar deneyin.");
     setErr("");
-    setStatus("sending");
-    track("callback_submit", ev());
-    const res = await submitLead({
-      name,
-      phone,
-      problem_type: problem,
+    const label = problemOptions.find((o) => o.value === problem)?.label ?? "";
+    const desc = String(f.get("description") ?? "")
+      .trim()
+      .slice(0, 500);
+    const lines = [
+      "Merhaba, Eskişehir'de elektrik hizmeti almak istiyorum.",
+      `Ad: ${name}`,
+      `Telefon: ${digits}`,
+      district ? `İlçe: ${district}` : "",
+      `Sorun: ${label}`,
+      desc ? `Açıklama: ${desc}` : "",
+    ].filter(Boolean);
+    const url = waMessage(lines.join("\n"));
+    track("form_whatsapp_submit", {
+      problem: label,
       district: district || undefined,
-      description:
-        String(f.get("description") ?? "")
-          .trim()
-          .slice(0, 500) || undefined,
-      preferred_time: String(f.get("time") ?? "") || undefined,
-      ...getAttribution(),
     });
-    if (res.ok) {
-      track("lead_submitted", ev());
-      track("lead_completed", ev());
-      setStatus("done");
-    } else setStatus(res.reason === "not_configured" ? "fallback" : "error");
+    setWaUrl(url);
+    // Kullanıcı hareketi içinde açılır; engellenirse aşağıdaki düğme kullanılır.
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
-  if (status === "done")
-    return (
-      <p role="status" className="rounded-2xl border border-line p-8 text-xl">
-        Talebiniz bize ulaştı. Sizi en kısa sürede arayacağız.
-      </p>
-    );
-  if (status === "fallback" || status === "error")
+  if (waUrl)
     return (
       <div role="status" className="rounded-2xl border border-line p-8">
         <p className="text-xl">
-          {status === "fallback"
-            ? "Talep formu şu an aktif değil."
-            : "Talebiniz gönderilemedi."}{" "}
-          Bize WhatsApp veya telefonla ulaşabilirsiniz.
+          WhatsApp mesajınız hazırlandı. Mesajı göndermek için WhatsApp&apos;ta
+          &ldquo;Gönder&rdquo; düğmesine basmanız gerekir.
         </p>
-        <a
-          href={waContextLink(problem, district)}
-          onClick={() => track("whatsapp_click", ev())}
-          className="mt-6 inline-flex rounded-full bg-paper px-7 py-3.5 font-medium text-ink transition-colors hover:bg-accent-soft"
-        >
-          WhatsApp ile yaz
-        </a>
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-medium text-ink transition-colors hover:bg-accent-soft"
+          >
+            <WhatsAppIcon size={18} /> WhatsApp&apos;ı yeniden aç
+          </a>
+          <button
+            type="button"
+            onClick={() => setWaUrl("")}
+            className="text-mute underline underline-offset-4 hover:text-paper"
+          >
+            Bilgileri düzenle
+          </button>
+        </div>
       </div>
     );
 
   return (
     <form
       onSubmit={onSubmit}
-      onFocus={onStart}
+      onFocus={() => {
+        if (!t0.current) t0.current = Date.now();
+      }}
       noValidate
       className="grid gap-5"
     >
@@ -175,28 +170,6 @@ export function CallbackForm() {
           className={`${field} resize-none`}
         />
       </label>
-      <div className="grid gap-5 md:grid-cols-2">
-        <label className={lbl}>
-          Uygun zaman (isteğe bağlı)
-          <select name="time" className={field}>
-            {timeSlots.map((t) => (
-              <option key={t}>{t}</option>
-            ))}
-          </select>
-        </label>
-        <label className={lbl}>
-          Fotoğraf ekle (isteğe bağlı)
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
-            className={`${field} text-sm file:mr-3 file:rounded-full file:border-0 file:bg-white/10 file:px-3 file:py-1 file:text-paper`}
-          />
-          {fileName && (
-            <span className="mt-1 block text-xs text-mute/70">{fileName}</span>
-          )}
-        </label>
-      </div>
       {err && (
         <p role="alert" className="text-sm text-[#ff9b9b]">
           {err}
@@ -205,14 +178,12 @@ export function CallbackForm() {
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
         <button
           type="submit"
-          disabled={status === "sending"}
-          className="rounded-full bg-paper px-8 py-3.5 font-semibold tracking-wide text-ink transition-colors hover:bg-accent-soft disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-3.5 font-semibold tracking-wide text-ink transition-colors hover:bg-accent-soft"
         >
-          {status === "sending" ? "GÖNDERİLİYOR…" : "TALEBİMİ İLET"}
+          <WhatsAppIcon size={18} /> WHATSAPP&apos;TAN GÖNDER
         </button>
         <p className="max-w-sm text-xs leading-relaxed text-mute">
-          Bilgilerinizi yalnızca talebinizi değerlendirmek ve sizi aramak için
-          kullanırız.{" "}
+          Bilgileriniz bu sitede saklanmaz; hazır bir WhatsApp mesajına dönüşür.{" "}
           <Link
             href="/gizlilik"
             className="underline underline-offset-2 hover:text-paper"

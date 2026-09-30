@@ -10,11 +10,6 @@ export function TrackLink({ event, params, onClick, ...rest }: Props) {
       {...rest}
       onClick={(e) => {
         track(event, params);
-        // Bu sayfada talep formu yoksa ana sayfadaki forma git.
-        if (rest.href === "#talep" && !document.getElementById("talep")) {
-          e.preventDefault();
-          window.location.href = "/#talep";
-        }
         onClick?.(e);
       }}
     />
