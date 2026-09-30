@@ -1,0 +1,23 @@
+# 1. Gitignore dosyasını düzelt
+@"
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+"@ | Out-File -Encoding utf8 .gitignore
+
+# 2. Dosyaları Git'e ekle
+git add .
+
+# 3. Kontrol et
+git status
+
+# 4. İlk commit'i oluştur
+git commit -m "first commit"
+
+# 5. Branch'i main yap
+git branch -M main
+
+# 6. GitHub'a gönder
+git push -u origin main

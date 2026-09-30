@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@theme {
+  --color-ink:#08090b;
+  --color-paper:#f1f1ee;
+  --color-mute:#969ba3;
+  --color-line:#ffffff14;
+  --color-accent:#7c8cff;
+  --color-accent-soft:#b4bcff;
+  --font-sans:var(--font-inter),system-ui,sans-serif;
+}
+:root{--header-h:4.5rem}
+html{background:var(--color-ink)}
+body{background:var(--color-ink);color:var(--color-paper);font-size:1.0625rem;line-height:1.65}
+h1,h2,h3{text-wrap:balance}
+/* Editorial typography */
+.type-h1{font-size:clamp(2.4rem,9.6vw,9rem);line-height:.92;font-weight:600;letter-spacing:-.045em}
+.type-h2{font-size:clamp(2.25rem,6vw,7rem);line-height:.95;font-weight:600;letter-spacing:-.04em}
+.type-body{max-width:34rem;color:var(--color-mute);font-size:clamp(1.05rem,1.4vw,1.25rem);line-height:1.6}
+.grid-bg{background-image:linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:96px 96px}
+:focus-visible{outline:2px solid var(--color-accent);outline-offset:3px}
+::selection{background:#7c8cff40}
+/* Motion */
+.flow{stroke-dasharray:4 14;animation:flow 9s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-180}}
+.reveal{animation:rise .9s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0ms)}
+@keyframes rise{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.fade{animation:fade 1s ease both;animation-delay:var(--d,0ms)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.circuit{animation:fade 2.4s ease both;animation-delay:1.6s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@keyframes nudge{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.nudge{animation:nudge 2.4s ease-in-out infinite}
+html{scroll-padding-top:var(--header-h)}
+body{overflow-x:clip}
+.type-page{font-size:clamp(2.25rem,7vw,7rem);line-height:.98;font-weight:600;letter-spacing:-.04em;overflow-wrap:break-word}
+.skip{position:absolute;left:1rem;top:-4rem;z-index:100;border-radius:9999px;background:var(--color-paper);color:var(--color-ink);padding:.6rem 1.1rem;font-size:.875rem;font-weight:500;transition:top .2s}
+.skip:focus{top:1rem}
+[data-off] .flow{animation-play-state:paused}
