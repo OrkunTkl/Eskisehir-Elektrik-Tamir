@@ -45,7 +45,7 @@ export function ServiceStack({ as: H = "h3" }: { as?: "h2" | "h3" }) {
             <div className="relative aspect-[4/3] bg-ink md:aspect-auto md:min-h-[18rem]">
               <SeoImage
                 decorative
-                src={s.image}
+                src={`/services/${s.slug}.svg`}
                 width={800}
                 height={600}
                 className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.03]"
