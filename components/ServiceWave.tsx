@@ -167,7 +167,7 @@ export function ServiceWave() {
             scene.add(m);
             meshes[i] = m;
           };
-          img.src = s.image;
+          img.src = `/services/${s.slug}.svg`;
         });
         const resize = () => {
           w = st.clientWidth;
