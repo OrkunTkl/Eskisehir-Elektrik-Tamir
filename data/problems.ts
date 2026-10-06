@@ -1,13 +1,15 @@
-export type Problem = { slug: string; title: string; short: string; causes: string[]; safe: string[]; call: string[] };
-const P = (slug: string, title: string, short: string, causes: string[], safe: string[], call: string[]): Problem => ({ slug, title, short, causes, safe, call });
-export const problems: Problem[] = [
- P("sigorta-neden-atar", "Sigorta Neden Atar?", "Sigorta, hattın taşıyabileceğinden fazla akım çekildiğinde devreyi keser. Nedeni çoğu zaman tek bir cihazdır, bazen tesisattır.", ["Aynı hatta çok sayıda cihazın çalışması (aşırı yük)", "Kısa devre", "Arızalı cihaz", "Yıpranmış veya hatalı tesisat"], ["Hattaki cihazların fişini çekin, sigortayı tek başına açıp cihazları teker teker takarak hangisinin tetiklediğine bakın.", "Islak elle veya ıslak zeminde pano ile uğraşmayın."], ["Sigorta cihazlar çıkarılınca da atıyorsa", "Yanık kokusu, ısınma veya kıvılcım varsa"]),
- P("salter-atiyor", "Şalter Neden Atar?", "Şalter atması bir korumadır; hangi hatta ve hangi durumda attığını not etmek arızayı bulmayı kolaylaştırır.", ["Aşırı yük", "Kısa devre", "Nemli ortam veya su teması", "Eskimiş şalter"], ["Atma anında hangi cihazın çalıştığını not edin.", "Şalteri tekrar tekrar zorlayarak açmayın."], ["Şalter açılır açılmaz atıyorsa", "Panoda ısınma veya koku varsa"]),
- P("priz-calismiyor", "Priz Çalışmıyor: Ne Yapmalı?", "Tek prizin veya bir odadaki tüm prizlerin çalışmaması farklı nedenlere işaret eder.", ["İlgili hattın sigortasının atmış olması", "Gevşemiş veya yanmış priz bağlantısı", "Cihazın kendisinin arızalı olması"], ["Prize başka bir cihaz takarak deneyin.", "Panoda ilgili sigortanın atıp atmadığına bakın."], ["Priz sıcaksa, kararmışsa veya koku varsa kullanmayı bırakın ve servis çağırın"]),
- P("elektrik-kesildi", "Elektrik Kesildi: Bina mı, Şebeke mi?", "Önce sorunun sadece evinizde mi yoksa çevrede de mi olduğunu anlamak gerekir.", ["Şebeke veya bölgesel kesinti", "Ana şalter veya kaçak akım rölesinin atması", "Daire içi hat arızası"], ["Komşularda elektrik var mı kontrol edin.", "Elektrik dağıtım şirketinin arıza hattı ve bildirim kanallarına bakın."], ["Sadece sizde kesikse ve panoda atan bir şey yoksa"]),
- P("kacak-akim-rolesi-atiyor", "Kaçak Akım Rölesi Neden Atar?", "Kaçak akım rölesi, akımın istenmeyen bir yola gittiğini algıladığında devreyi keser; bu nedenle ciddiye alınmalıdır.", ["Nem veya su teması", "Arızalı bir cihaz", "Yıpranmış kablo yalıtımı"], ["Hattaki cihazları çıkarıp rölenin yine atıp atmadığına bakın.", "Rölenin test butonunu kullanma talimatını cihaz kılavuzundan kontrol edin."], ["Cihazlar çıkarılınca da atıyorsa", "Çarpılma hissi yaşandıysa"]),
- P("yanik-kokusu", "Yanık Kokusu Geliyor", "Yanık kokusu ciddi bir uyarı olabilir; kaynağı bulmaya çalışmak yerine güvenliğe öncelik verin.", ["Aşırı ısınan priz veya kablo", "Arızalı cihaz", "Gevşek bağlantı"], ["Şüpheli cihazın fişini güvenle çekebiliyorsanız çekin; değilse dokunmayın.", "Duman veya alev görürseniz 112'yi arayın."], ["Koku sürüyorsa kullanmayı bırakıp servis çağırın"]),
- P("kivilcim-olusuyor", "Kıvılcım Oluşuyor", "Priz veya anahtarda kıvılcım, gevşek bağlantı veya arıza belirtisi olabilir.", ["Gevşek priz bağlantısı", "Yıpranmış fiş veya kablo", "Yanmış kontak"], ["Kullanmayı bırakın, hatta yakın yanıcı malzemeleri uzaklaştırın.", "Yangın belirtisi varsa 112'yi arayın."], ["Tekrarlayan kıvılcım varsa mutlaka servis çağırın"]),
- P("lambalar-calismiyor", "Lambalar Çalışmıyor", "Bir lambanın veya tüm ışıkların yanmaması farklı nedenlere dayanır.", ["Ampul ömrünü tamamlamış olabilir", "Hattın sigortası atmış olabilir", "Duy veya bağlantı arızası"], ["Ampulü değiştirmeden önce anahtarı kapatın.", "Panoda ilgili sigortaya bakın."], ["Ampul değişince de yanmıyorsa"]),
- P("elektrik-kacagi", "Elektrik Kaçağından Şüpheleniyorum", "Metal yüzeylerde hafif çarpılma hissi veya sürekli atan röle, kaçak şüphesi doğurabilir.", ["Yıpranmış yalıtım", "Nemli alanlardaki bağlantılar", "Arızalı cihaz"], ["Şüpheli cihazı kullanmayı bırakın.", "Islak zeminde metal yüzeylere dokunmayın."], ["Çarpılma hissi yaşadıysanız servis çağırın"]),
-];
+import { problemDocs } from "./docs";
+export type Severity = "acil" | "dikkat" | "bilgi";
+export type Problem = { slug: string; title: string; label: string; short: string; severity: Severity };
+const meta: [string, string, string][] = [
+  ["sigorta-neden-atar", "Sigorta Neden Atar?", "Sigorta atıyor"],
+  ["salter-atiyor", "Şalter Neden Atar?", "Şalter atıyor"],
+  ["priz-calismiyor", "Priz Çalışmıyor: Ne Yapmalı?", "Priz çalışmıyor"],
+  ["elektrik-kesildi", "Elektrik Kesildi: Bina mı, Şebeke mi?", "Elektrik kesildi"],
+  ["kacak-akim-rolesi-atiyor", "Kaçak Akım Rölesi Neden Atar?", "Röle atıyor"],
+  ["yanik-kokusu", "Yanık Kokusu Geliyor", "Yanık kokusu"],
+  ["kivilcim-olusuyor", "Kıvılcım Oluşuyor", "Kıvılcım çıkıyor"],
+  ["lambalar-calismiyor", "Lambalar Çalışmıyor", "Lamba yanmıyor"],
+  ["elektrik-kacagi", "Elektrik Kaçağından Şüpheleniyorum", "Kaçak şüphesi"],
+]; 
+export const problems: Problem[] = meta.map(([slug, title, label]) => ({ slug, title, label, short: problemDocs[slug].lead, severity: problemDocs[slug].severity }));
