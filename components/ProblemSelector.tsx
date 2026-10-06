@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { problems } from "@/data/problems";
+import { problemDocs } from "@/data/docs";
 import { externalProps, telLink, waLink } from "@/lib/contact";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
@@ -488,9 +489,15 @@ export function ProblemSelector() {
             <div className="mt-12 grid gap-10 md:mt-20 md:grid-cols-3 md:gap-14">
               {(
                 [
-                  ["Olası nedenler", current.causes],
-                  ["Güvenle yapabilecekleriniz", current.safe],
-                  ["Şu durumda servis çağırın", current.call],
+                  [
+                    "Olası nedenler",
+                    problemDocs[current.slug].causes.map((c) => c.t),
+                  ],
+                  [
+                    "Güvenle yapabilecekleriniz",
+                    problemDocs[current.slug].steps.map((x) => x.t),
+                  ],
+                  ["Şu durumda servis çağırın", problemDocs[current.slug].call],
                 ] as const
               ).map(([h, list]) => (
                 <div key={h}>
