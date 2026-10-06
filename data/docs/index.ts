@@ -1,0 +1,25 @@
+// Otomatik toplayıcı: tüm içerik dosyaları burada birleşir.
+import type { ProblemDoc, ServiceDoc } from "./types";
+import serviceAcilElektrikci from "./service-acil-elektrikci";
+import serviceAvizeMontaji from "./service-avize-montaji";
+import serviceAydinlatmaProblemleri from "./service-aydinlatma-problemleri";
+import serviceElektrikAriza from "./service-elektrik-ariza";
+import serviceElektrikKacagi from "./service-elektrik-kacagi";
+import serviceElektrikTesisati from "./service-elektrik-tesisati";
+import serviceKacakAkimRoles from "./service-kacak-akim-roles";
+import servicePrizAnahtarAriza from "./service-priz-anahtar-ariza";
+import serviceSigortaSalter from "./service-sigorta-salter";
+import problemElektrikKacagi from "./problem-elektrik-kacagi";
+import problemElektrikKesildi from "./problem-elektrik-kesildi";
+import problemKacakAkimRolesiAtiyor from "./problem-kacak-akim-rolesi-atiyor";
+import problemKivilcimOlusuyor from "./problem-kivilcim-olusuyor";
+import problemLambalarCalismiyor from "./problem-lambalar-calismiyor";
+import problemPrizCalismiyor from "./problem-priz-calismiyor";
+import problemSalterAtiyor from "./problem-salter-atiyor";
+import problemSigortaNedenAtar from "./problem-sigorta-neden-atar";
+import problemYanikKokusu from "./problem-yanik-kokusu";
+export type { Faq, Block, Item, ServiceDoc, ProblemDoc } from "./types";
+const sv: ServiceDoc[] = [serviceAcilElektrikci,serviceAvizeMontaji,serviceAydinlatmaProblemleri,serviceElektrikAriza,serviceElektrikKacagi,serviceElektrikTesisati,serviceKacakAkimRoles,servicePrizAnahtarAriza,serviceSigortaSalter,];
+const pr: ProblemDoc[] = [problemElektrikKacagi,problemElektrikKesildi,problemKacakAkimRolesiAtiyor,problemKivilcimOlusuyor,problemLambalarCalismiyor,problemPrizCalismiyor,problemSalterAtiyor,problemSigortaNedenAtar,problemYanikKokusu,];
+export const serviceDocs: Record<string, ServiceDoc> = Object.fromEntries(sv.map((d) => [d.slug, d]));
+export const problemDocs: Record<string, ProblemDoc> = Object.fromEntries(pr.map((d) => [d.slug, d]));

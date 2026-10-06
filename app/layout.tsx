@@ -1,23 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StickyCta } from "@/components/StickyCta";
 import { FloatingContact } from "@/components/FloatingContact";
 import { JsonLd } from "@/components/JsonLd";
+import { Motion } from "@/components/Motion";
 import { organization, website, SITE_NAME } from "@/lib/seo";
 import { SITE } from "@/lib/contact";
-const inter = Inter({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
-});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover", // env(safe-area-inset-*) değerlerinin çalışması için
-  themeColor: "#08090b",
+  viewportFit: "cover",
+  themeColor: "#0a0a0b",
 };
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: { default: "Eskişehir Elektrik", template: "%s" },
@@ -28,14 +30,15 @@ export const metadata: Metadata = {
     ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
     : undefined,
 };
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="tr" className={inter.variable}>
-      <body className="font-sans antialiased">
+    <html lang="tr">
+      <body className="grain">
         <a href="#main" className="skip">
           İçeriğe geç
         </a>
@@ -46,6 +49,7 @@ export default function RootLayout({
         <Footer />
         <StickyCta />
         <FloatingContact />
+        <Motion />
       </body>
     </html>
   );

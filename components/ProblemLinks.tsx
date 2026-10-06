@@ -1,31 +1,38 @@
 import Link from "next/link";
 import { problems } from "@/data/problems";
-// Seçici etkileşimli olduğu için, tüm rehberlere giden taranabilir düz bağlantı listesi.
+import { SeverityChip } from "@/components/SeverityChip";
+
 export function ProblemLinks() {
   return (
     <section
       aria-labelledby="tum-rehberler"
       className="px-6 py-20 md:px-10 md:py-32 lg:px-14"
     >
-      <h2
-        id="tum-rehberler"
-        className="text-3xl font-semibold tracking-tight md:text-5xl"
-      >
+      <h2 id="tum-rehberler" className="type-h2 !text-[clamp(2.4rem,6vw,6rem)]">
         Tüm arıza rehberleri
       </h2>
-      <ul className="mt-10 border-b border-line">
-        {problems.map((p) => (
-          <li
-            key={p.slug}
-            className="grid gap-2 border-t border-line py-6 md:grid-cols-[1fr_2fr] md:gap-10"
-          >
+      <ul className="mt-12 border-b border-line">
+        {problems.map((p, i) => (
+          <li key={p.slug}>
             <Link
               href={`/ariza-merkezi/${p.slug}`}
-              className="text-xl font-medium text-accent-soft underline-offset-4 hover:underline md:text-2xl"
+              className="group relative grid gap-3 overflow-hidden border-t border-line py-8 md:grid-cols-[4rem_1fr_1.2fr_auto] md:items-center md:gap-8"
             >
-              {p.title}
+              <span
+                aria-hidden
+                className="absolute inset-0 origin-left scale-x-0 bg-paper/[.05] transition-transform duration-500 group-hover:scale-x-100"
+              />
+              <span className="mono relative text-mute">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="relative text-2xl font-semibold tracking-[-.03em] transition-transform duration-500 group-hover:translate-x-2 md:text-3xl">
+                {p.title}
+              </span>
+              <span className="relative max-w-xl text-mute">
+                {p.short.split(/(?<=\.)\s/)[0]}
+              </span>
+              <SeverityChip s={p.severity} />
             </Link>
-            <p className="max-w-2xl text-mute">{p.short}</p>
           </li>
         ))}
       </ul>

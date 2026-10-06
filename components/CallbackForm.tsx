@@ -1,12 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { districts, problemOptions, waMessage } from "@/lib/contact";
 import { track } from "@/lib/analytics";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const field =
-  "mt-2 w-full rounded-xl border border-line bg-white/[.04] px-4 py-3 text-base text-paper outline-none transition placeholder:text-mute/60 focus:border-accent";
+  "mt-2 w-full rounded-xl border border-line bg-paper/[.05] px-4 py-3.5 text-base text-paper outline-none transition placeholder:text-mute/60 focus:border-paper";
 const lbl = "block text-sm text-mute";
 
 // Form sunucuya veri göndermez: bilgiler hazır bir WhatsApp mesajına dönüştürülür ve
@@ -17,6 +17,12 @@ export function CallbackForm() {
   const [problem, setProblem] = useState("");
   const [district, setDistrict] = useState("");
   const t0 = useRef(0);
+  useEffect(() => {
+    const on = (e: Event) =>
+      setDistrict(String((e as CustomEvent).detail ?? ""));
+    window.addEventListener("set-district", on);
+    return () => window.removeEventListener("set-district", on);
+  }, []);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,7 +64,7 @@ export function CallbackForm() {
 
   if (waUrl)
     return (
-      <div role="status" className="rounded-2xl border border-line p-8">
+      <div role="status" className="rounded-3xl border border-line p-8">
         <p className="text-xl">
           WhatsApp mesajınız hazırlandı. Mesajı göndermek için WhatsApp&apos;ta
           &ldquo;Gönder&rdquo; düğmesine basmanız gerekir.
@@ -68,7 +74,7 @@ export function CallbackForm() {
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-paper px-7 py-3.5 font-medium text-ink transition-colors hover:bg-accent-soft"
+            className="btn btn-ink"
           >
             <WhatsAppIcon size={18} /> WhatsApp&apos;ı yeniden aç
           </a>
@@ -171,15 +177,12 @@ export function CallbackForm() {
         />
       </label>
       {err && (
-        <p role="alert" className="text-sm text-[#ff9b9b]">
+        <p role="alert" className="text-sm text-[#c1260a]">
           {err}
         </p>
       )}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <button
-          type="submit"
-          className="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-3.5 font-semibold tracking-wide text-ink transition-colors hover:bg-accent-soft"
-        >
+        <button type="submit" className="btn btn-ink">
           <WhatsAppIcon size={18} /> WHATSAPP&apos;TAN GÖNDER
         </button>
         <p className="max-w-sm text-xs leading-relaxed text-mute">

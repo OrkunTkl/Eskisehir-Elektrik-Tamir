@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { externalProps, waLink } from "@/lib/contact";
+import { Bolt } from "@/components/Bolt";
 
 const nav: [string, string][] = [
   ["Hizmetler", "/hizmetler"],
@@ -37,7 +38,7 @@ export function Header() {
     const el = cta.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.12}px, ${(e.clientY - r.top - r.height / 2) * 0.2}px)`;
+    el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.15}px, ${(e.clientY - r.top - r.height / 2) * 0.25}px)`;
   };
   const unmagnet = () => {
     if (cta.current) cta.current.style.transform = "";
@@ -46,15 +47,26 @@ export function Header() {
   return (
     <>
       <header
-        className={`fade sticky top-0 z-50 flex h-[var(--header-h)] w-full items-center justify-between px-6 transition-[background-color,backdrop-filter] duration-500 md:px-10 lg:px-14 ${
-          scrolled && !open ? "bg-ink/50 backdrop-blur-md" : "bg-transparent"
+        className={`sticky top-0 z-50 flex h-[var(--header-h)] w-full items-center justify-between px-6 transition-[background-color,backdrop-filter,border-color] duration-500 md:px-10 lg:px-14 ${
+          scrolled && !open
+            ? "border-b border-line bg-ink/70 backdrop-blur-xl"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
         <Link
           href="/"
-          className="text-sm font-semibold tracking-[.14em] text-paper"
+          className="group flex items-center gap-2.5 text-paper"
+          aria-label="Eskişehir Elektrik ana sayfa"
         >
-          ESKİŞEHİR ELEKTRİK
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-ink transition-transform duration-500 group-hover:rotate-[20deg]">
+            <Bolt size={16} />
+          </span>
+          <span className="text-[15px] font-bold leading-none tracking-[-.02em]">
+            Eskişehir
+            <span className="serif ml-1 text-[19px] font-normal text-accent">
+              elektrik
+            </span>
+          </span>
         </Link>
 
         <nav
@@ -65,7 +77,8 @@ export function Header() {
             <Link
               key={h}
               href={h}
-              className="text-mute transition-colors duration-300 hover:text-paper"
+              aria-current={pathname.startsWith(h) ? "page" : undefined}
+              className="relative text-mute transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-500 hover:text-paper hover:after:scale-x-100 aria-[current=page]:text-paper aria-[current=page]:after:scale-x-100"
             >
               {l}
             </Link>
@@ -76,7 +89,7 @@ export function Header() {
             {...externalProps}
             onPointerMove={magnet}
             onPointerLeave={unmagnet}
-            className="rounded-full border border-white/25 px-5 py-2.5 font-medium text-paper transition-[transform,border-color,color] duration-300 ease-out hover:border-accent hover:text-accent-soft"
+            className="btn btn-volt !px-5 !py-3 !text-sm"
           >
             WhatsApp&apos;tan Yaz
           </a>
@@ -84,12 +97,12 @@ export function Header() {
 
         <button
           type="button"
-          className="text-sm font-medium tracking-wide text-paper md:hidden"
+          className="mono text-paper md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? "Kapat" : "Menü"}
+          {open ? "Kapat ✕" : "Menü ＋"}
         </button>
       </header>
 
@@ -100,11 +113,7 @@ export function Header() {
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-1/3 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"
-        />
-        <nav aria-label="Mobil menü" className="flex flex-col gap-2">
+        <nav aria-label="Mobil menü" className="flex flex-col gap-1">
           {nav.map(([l, h], i) => (
             <Link
               key={h}
@@ -112,8 +121,8 @@ export function Header() {
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
               style={{ transitionDelay: open ? `${120 + i * 70}ms` : "0ms" }}
-              className={`type-h2 !text-[clamp(2.5rem,12vw,4.5rem)] py-1 text-paper transition-[opacity,transform] duration-700 ease-out hover:text-accent-soft ${
-                open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+              className={`type-h2 !text-[clamp(2.8rem,13vw,5rem)] py-1 text-paper transition-[opacity,transform] duration-700 hover:text-accent ${
+                open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
               }`}
             >
               {l}
@@ -124,10 +133,7 @@ export function Header() {
           href={waLink()}
           {...externalProps}
           tabIndex={open ? 0 : -1}
-          style={{ transitionDelay: open ? "380ms" : "0ms" }}
-          className={`mt-10 inline-flex w-fit rounded-full border border-white/25 px-6 py-3 font-medium text-paper transition-[opacity,transform,border-color] duration-700 hover:border-accent ${
-            open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-          }`}
+          className="btn btn-volt mt-10 w-fit"
         >
           WhatsApp&apos;tan Yaz
         </a>

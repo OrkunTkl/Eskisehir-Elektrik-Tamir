@@ -95,7 +95,7 @@ export function FloatingContact() {
         <div
           role="dialog"
           aria-label="Telefon"
-          className="w-72 rounded-2xl border border-line bg-[#131316] p-5 shadow-2xl"
+          className="w-72 rounded-2xl border border-line bg-[#131315] p-5 shadow-2xl"
         >
           <p className="text-sm text-mute">Telefon</p>
           <p className="mt-1 text-2xl font-semibold tracking-tight">
@@ -114,7 +114,7 @@ export function FloatingContact() {
           aria-label="Telefon numarasını göster"
           aria-expanded={panel === "tel"}
           onClick={() => toggle("tel")}
-          className="flex h-14 w-14 items-center justify-center rounded-full border border-line bg-[#131316] transition hover:border-accent hover:text-accent-soft"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-line bg-[#131315] transition hover:border-accent hover:text-accent"
         >
           {panel === "tel" ? <X size={22} /> : <Phone size={22} />}
         </button>
