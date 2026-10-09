@@ -5,7 +5,7 @@ const steps: [string, string, string][] = [
   [
     "01",
     "Anlatın",
-    "Telefonla arayın, WhatsApp'tan yazın ya da formu doldurun. Ne olduğunu, hangi odada başladığını ve ilçenizi yazmanız yeterli; teknik terim gerekmez.",
+    "WhatsApp'tan yazın ya da formu doldurun. Ne olduğunu, hangi odada başladığını ve ilçenizi yazmanız yeterli; teknik terim gerekmez.",
   ],
   [
     "02",

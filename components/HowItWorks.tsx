@@ -31,8 +31,8 @@ export function HowItWorks() {
         <span className="text-mute">BİZ HALLEDELİM.</span>
       </h2>
       <p className="type-body mt-10 md:mt-14">
-        Elektrik sorununuzu telefon veya WhatsApp üzerinden anlatın.
-        İhtiyacınızı değerlendirelim ve uygun servis sağlayıcıya yönlendirelim.
+        Elektrik sorununuzu WhatsApp üzerinden anlatın. İhtiyacınızı
+        değerlendirelim ve uygun servis sağlayıcıya yönlendirelim.
       </p>
       <ol className="mt-16 grid gap-4 md:mt-28 md:grid-cols-3 md:gap-5">
         {steps.map(([n, t, d]) => (

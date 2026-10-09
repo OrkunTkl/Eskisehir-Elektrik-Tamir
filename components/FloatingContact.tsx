@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Phone, X } from "lucide-react";
+import { X } from "lucide-react";
+// import { Phone, X } from "lucide-react"; // telefon gizlendi
 import {
   DEFAULT_WA_MESSAGE,
-  PHONE_DISPLAY,
-  telLink,
+  // PHONE_DISPLAY, // telefon gizlendi
+  // telLink,
   waMessage,
 } from "@/lib/contact";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -91,6 +92,7 @@ export function FloatingContact() {
           </div>
         </div>
       )}
+      {/* Telefon ile arama gizlendi
       {panel === "tel" && (
         <div
           role="dialog"
@@ -109,7 +111,9 @@ export function FloatingContact() {
           </a>
         </div>
       )}
+      */}
       <div className="flex gap-3">
+        {/* Telefon ile arama gizlendi
         <button
           aria-label="Telefon numarasını göster"
           aria-expanded={panel === "tel"}
@@ -118,6 +122,7 @@ export function FloatingContact() {
         >
           {panel === "tel" ? <X size={22} /> : <Phone size={22} />}
         </button>
+        */}
         <button
           aria-label="WhatsApp ile mesaj yaz"
           aria-expanded={panel === "wa"}

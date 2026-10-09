@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Phone } from "lucide-react";
-import { externalProps, telLink, waLink } from "@/lib/contact";
+// import { Phone } from "lucide-react"; // telefon gizlendi
+// import { externalProps, telLink, waLink } from "@/lib/contact";
+import { externalProps, waLink } from "@/lib/contact";
 import { services } from "@/data/services";
 import { problems } from "@/data/problems";
 import { TrackLink } from "@/components/TrackLink";
@@ -36,8 +37,9 @@ export function StickyCta() {
   return (
     <div
       aria-hidden={hide}
-      className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-line bg-ink/95 px-3 pt-2.5 pb-[max(.625rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${hide ? "translate-y-full" : ""}`}
+      className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-1 gap-2 border-t border-line bg-ink/95 px-3 pt-2.5 pb-[max(.625rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${hide ? "translate-y-full" : ""}`}
     >
+      {/* Telefon ile arama gizlendi
       <TrackLink
         event="phone_click"
         href={telLink()}
@@ -46,6 +48,7 @@ export function StickyCta() {
       >
         <Phone size={17} aria-hidden /> Hemen Ara
       </TrackLink>
+      */}
       <TrackLink
         event="whatsapp_click"
         params={{ problem: topic }}

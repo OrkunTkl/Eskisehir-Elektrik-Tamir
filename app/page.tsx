@@ -64,7 +64,7 @@ const homeFaq = [
   },
   {
     q: "Talebimi nasıl iletebilirim?",
-    a: "Telefonla arayabilir, WhatsApp'tan yazabilir ya da sayfadaki formu doldurabilirsiniz. Form sunucuya veri göndermez; bilgilerinizi hazır bir WhatsApp mesajına dönüştürür ve göndermeyi siz onaylarsınız.",
+    a: "WhatsApp'tan yazabilir ya da sayfadaki formu doldurabilirsiniz. Form sunucuya veri göndermez; bilgilerinizi hazır bir WhatsApp mesajına dönüştürür ve göndermeyi siz onaylarsınız.",
   },
   {
     q: "Fiyat ve süre hakkında bilgi verir misiniz?",

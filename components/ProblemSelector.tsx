@@ -7,7 +7,7 @@ import {
   Flame,
   Hand,
   Lightbulb,
-  Phone,
+  // Phone, // telefon gizlendi
   Plug,
   PlugZap,
   Power,
@@ -19,7 +19,8 @@ import {
 } from "lucide-react";
 import { problems } from "@/data/problems";
 import { problemDocs } from "@/data/docs";
-import { externalProps, telLink, waLink } from "@/lib/contact";
+// import { externalProps, telLink, waLink } from "@/lib/contact"; // telefon gizlendi
+import { externalProps, waLink } from "@/lib/contact";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -525,12 +526,14 @@ export function ProblemSelector() {
               >
                 Detaylı rehberi aç
               </Link>
+              {/* Telefon ile arama gizlendi
               <a
                 href={telLink()}
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-base font-medium transition hover:border-accent hover:text-accent-soft"
               >
                 <Phone size={16} aria-hidden /> Ara
               </a>
+              */}
               <a
                 href={waLink(current.title)}
                 {...externalProps}

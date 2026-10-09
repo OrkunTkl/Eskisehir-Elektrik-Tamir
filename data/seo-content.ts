@@ -16,7 +16,7 @@ export const serviceContent: Record<string, ServiceContent> = {
       { h: "Arızanın kapsamına bakın", p: "Tüm evde elektrik yoksa önce komşularınıza ve bina panosuna bakın. Bina genelinde kesinti varsa sorun çoğu zaman şebekeden kaynaklanır ve dağıtım şirketinin arıza kanalları ilgilenir. Yalnızca dairenizde ya da tek bir hatta sorun varsa iç tesisat veya bir cihaz arızalı olabilir." },
       { h: "Güvenle kontrol edebilecekleriniz", p: "Panodaki sigorta veya şalterin atıp atmadığına bakabilir, hattaki cihazların fişini çekip durumu gözlemleyebilirsiniz. Islak elle ya da ıslak zeminde pano ile uğraşmayın; kablo, priz veya pano içini açmayın." },
       { h: "Ne zaman uzman destek gerekir?", p: "Yanık kokusu, ısınma, kıvılcım, çarpılma hissi ya da cihazlar çıkarılsa bile sigortanın atması gibi durumlarda müdahale etmeyin; yetkili bir elektrikçiden destek alın." },
-      { h: "Yönlendirme nasıl işler?", p: "Bu platform elektrik hizmetini kendisi vermez. Sorununuzu telefon, WhatsApp veya talep formuyla iletirsiniz; işin niteliğini ve ilçenizi değerlendirip uygun anlaşmalı servis sağlayıcıya yönlendiririz." },
+      { h: "Yönlendirme nasıl işler?", p: "Bu platform elektrik hizmetini kendisi vermez. Sorununuzu WhatsApp veya talep formuyla iletirsiniz; işin niteliğini ve ilçenizi değerlendirip uygun anlaşmalı servis sağlayıcıya yönlendiririz." },
     ],
     problems: ["elektrik-kesildi", "sigorta-neden-atar", "priz-calismiyor", "kacak-akim-rolesi-atiyor"],
     services: ["acil-elektrikci", "elektrik-tesisati"],
@@ -39,7 +39,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     services: ["elektrik-ariza", "elektrik-kacagi"],
     faq: [
       { q: "Eskişehir'de 7/24 elektrikçi bulunur mu?", a: "Çalışma saatleri anlaşmalı servis sağlayıcıya göre değişir ve bunu önceden garanti edemeyiz. Talebinizde aciliyeti ve ilçenizi belirtirseniz, o anda uygun bir servis sağlayıcıya yönlendirmeyi deneriz." },
-      { q: "En yakın elektrikçiye nasıl ulaşırım?", a: "Telefon, WhatsApp veya talep formunda ilçenizi belirtin. Sorununuzu ve bölgenizi değerlendirip uygun servis sağlayıcıyı belirleriz; yakınlık, servis sağlayıcının çalışma bölgesine ve uygunluğuna bağlıdır." },
+      { q: "En yakın elektrikçiye nasıl ulaşırım?", a: "WhatsApp veya talep formunda ilçenizi belirtin. Sorununuzu ve bölgenizi değerlendirip uygun servis sağlayıcıyı belirleriz; yakınlık, servis sağlayıcının çalışma bölgesine ve uygunluğuna bağlıdır." },
       { q: "Yanık kokusu geliyorsa ne yapmalıyım?", a: "Kokunun geldiği alandan uzaklaşın, ilgili hattın sigortasını güvenle kapatabiliyorsanız kapatın ve elektrikçi desteği alın. Duman veya alev varsa 112'yi arayın." },
     ],
   }),

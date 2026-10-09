@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { services } from "@/data/services";
 import { problems } from "@/data/problems";
-import { externalProps, telLink, waLink } from "@/lib/contact";
+// import { externalProps, telLink, waLink } from "@/lib/contact"; // telefon gizlendi
+import { externalProps, waLink } from "@/lib/contact";
 import { Bolt } from "@/components/Bolt";
 
 const PAD = "px-6 md:px-10 lg:px-14";
@@ -21,10 +22,12 @@ export function Footer() {
         <span className="serif font-normal text-accent">kalmayın.</span>
       </h2>
       <div className="mt-12 flex flex-wrap gap-3">
+        {/* Telefon ile arama gizlendi
         <a href={telLink()} className="btn btn-volt">
           Hemen Ara
         </a>
-        <a href={waLink()} {...externalProps} className="btn btn-ghost">
+        */}
+        <a href={waLink()} {...externalProps} className="btn btn-volt">
           WhatsApp&apos;tan Yaz
         </a>
       </div>

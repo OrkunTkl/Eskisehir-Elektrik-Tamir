@@ -1,5 +1,6 @@
 import { meta } from "@/lib/seo";
-import { PHONE_DISPLAY } from "@/lib/contact";
+// import { PHONE_DISPLAY } from "@/lib/contact"; // telefon gizlendi
+const PHONE_DISPLAY = ""; // telefon gizlendi
 
 export const metadata = meta(
   "Aydınlatma Metni (KVKK)",
@@ -19,10 +20,10 @@ export default function Page() {
       <div className="mt-10 space-y-5 text-lg text-mute">
         <p>
           Bu site, Eskişehir&apos;de elektrik hizmeti arayan kullanıcıların
-          talebini telefon veya WhatsApp üzerinden alıp uygun bağımsız servis
-          sağlayıcıya yönlendirir. Sitedeki talep formu bilgileri bir sunucuya
-          kaydetmez; girdiğiniz bilgiler yalnızca sizin başlattığınız hazır bir
-          WhatsApp mesajına dönüşür.
+          talebini WhatsApp üzerinden alıp uygun bağımsız servis sağlayıcıya
+          yönlendirir. Sitedeki talep formu bilgileri bir sunucuya kaydetmez;
+          girdiğiniz bilgiler yalnızca sizin başlattığınız hazır bir WhatsApp
+          mesajına dönüşür.
         </p>
         <p>
           <strong className="font-medium text-paper">İşlenen veriler:</strong>{" "}

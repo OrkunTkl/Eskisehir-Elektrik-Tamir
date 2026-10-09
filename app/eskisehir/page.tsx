@@ -26,7 +26,7 @@ const faq = [
   },
   {
     q: "Talebimi nasıl iletebilirim?",
-    a: "Telefonla arayabilir, WhatsApp'tan yazabilir veya sayfadaki formu doldurup bilgilerinizi hazır bir WhatsApp mesajı olarak gönderebilirsiniz. Sorununuzu, ilçenizi ve varsa mahalle ya da site adını yazmanız değerlendirmeyi kolaylaştırır.",
+    a: "WhatsApp'tan yazabilir veya sayfadaki formu doldurup bilgilerinizi hazır bir WhatsApp mesajı olarak gönderebilirsiniz. Sorununuzu, ilçenizi ve varsa mahalle ya da site adını yazmanız değerlendirmeyi kolaylaştırır.",
   },
   {
     q: "Kışın elektrik sorunları neden artar?",
@@ -59,12 +59,12 @@ export default function Page() {
           </h2>
           <div className="prose-x rv">
             <p>
-              Sorununuzu telefon, WhatsApp ya da form aracılığıyla iletirsiniz.
-              Biz önce işin türüne bakarız: kesinti mi, bir hat arızası mı,
-              montaj mı, yoksa güvenlik açısından beklememesi gereken bir
-              belirti mi? Ardından bulunduğunuz ilçeyi değerlendirir ve o
-              bölgede çalışan uygun bir bağımsız servis sağlayıcıyla iletişim
-              kurmanıza yardımcı oluruz.
+              Sorununuzu WhatsApp ya da form aracılığıyla iletirsiniz. Biz önce
+              işin türüne bakarız: kesinti mi, bir hat arızası mı, montaj mı,
+              yoksa güvenlik açısından beklememesi gereken bir belirti mi?
+              Ardından bulunduğunuz ilçeyi değerlendirir ve o bölgede çalışan
+              uygun bir bağımsız servis sağlayıcıyla iletişim kurmanıza yardımcı
+              oluruz.
             </p>
             <p>
               Fiyat, gelme süresi ve işin kapsamı bizim değil, işi yapacak
